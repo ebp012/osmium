@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>eshaan's website</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <link href='sigma.css' rel='stylesheet' type='text/css' />
+    <style>
+      #bgcontainer {
+        background: url(https://t3.ftcdn.net/jpg/01/05/54/98/360_F_105549841_qGAF80yXJ0pfwV1RsxMCLXaJ8ae2rlRY.jpg);
+        background-size: cover;
+      }
+      table#appTable tbody tr td img {
+        height: 40px;
+        width: 40px;
+      }
+      iframe {
+        border-radius: 12px;
+        backdrop-filter: blur(6.3px);
+        border: 1px solid black;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2), inset 2px 2px 3px 1px rgba(84, 56, 123, 0.25), 0 4px 30px rgba(0, 0, 0, 0.1);
+        margin: 24px;
+        padding: 14px;
+        width: calc(100% - 38px);
+        position: relative;
+        top: 12px;
+        bottom: 12px;
+      }
+      #expert {
+        resize: vertical;
+      }
+      .nav-item {
+        color: silver;
+      }
+      @media (max-width: 1024px) {
+        #clock-nav {
+          display: none;
+        }
+      }
+      @media (min-width: 1024px) {
+        /* iPad Mini landscape width is 1024px */
+        .nav-bar {
+          position: fixed;
+          left: 20px;
+          top: 20px; /* Changed from 50% to 20px */
+          transform: none; /* Removed translateY(-50%) as it's no longer needed for vertical centering */
+          width: auto;
+          height: auto;
+          flex-direction: row; /* Already set, confirming its presence */
+          padding: 20px 15px;
+          box-shadow: 0 0 20px rgba(7, 14, 0, 0.3);
+          display: flex; /* Changed from grid to flex to support flex-direction: row effectively */
+          gap: 15px;
+          bottom: auto;
+          overflow-x: auto; /* Changed to auto for horizontal scrolling if content overflows */
+          overflow-y: hidden; /* Changed to hidden as content is now horizontal */
+          max-height: none; /* Removed max-height as content is now horizontal */
+          filter: brightness(1.1);
+        }
+
+        .nav-item {
+          padding: 15px;
+          border-radius: 18px;
+          height: 81px;
+        }
+
+        .nav-item i {
+          font-size: 28px;
+        }
+        .nav-item:hover {
+          transform: translateY(-1.375px);
+          transition: transform 0.45s ease-in-out;
+        }
+        .nav-item:active,
+        .nav-item.active-state, .nav-item.active {
+          /*transform: translateY(1px);*/
+          transition: transform 0.45s ease-in-out;
+        }
+        .content-section {
+          transform: translateY(124px);
+          left: 20px;
+          right: 20px;
+          position: absolute;
+        }
+      }
+      #start .nav-item {
+        display: inline-block;
+        width: 360px;
+      }
+    </style>
+  </head>
+  <body
+    onload="document.querySelector('#homeTab').click(); pascal.addDimension();"
+  >
+    <div id="bgcontainer"></div>
+    <div class="container">
+      <!-- Bio Section -->
+      <div id="start" class="content-section active" style='backdrop-filter: blur(24px);'>
+        <h1 class="page-title">Start</h1>
+        <!--<div class="desk-paper" style='line-height: 36pt;'></div>-->
+        <div class="nav-item" data-target="#phone">
+          <i class="fa-solid fa-phone"></i>
+          Phone
+        </div>
+        <div class="nav-item" data-target="#keycaps">
+          <i class="fa-solid fa-keyboard"></i>
+          Key Caps
+        </div>
+        <div class="nav-item" data-target="#calculator">
+          <i class="fa-solid fa-calculator"></i>
+          Calculator
+        </div>
+      </div>
+
+      <!-- Explore Section -->
+      <div id="explore" class="content-section">
+        <h1 class="page-title">Explore</h1>
+        <div class="desk-paper" style="font-size: 14pt;">
+          <iframe src='file:///'></iframe>
+        </div>
+      </div>
+
+      <!-- Expert Section -->
+      <div id="expert" class="content-section">
+        <h1 class="page-title">Expert Browser</h1>
+        <div class="desk-paper">
+          <input type='text' id='address-bar' placeholder='enter URL...'/> <button id='go-btn' onclick='visitSite();'>Go</button> <button class='fa fa-refresh' id='refresh-btn'></button>
+          <script>
+            function visitSite () {
+              const url = doucment.querySelector('#address-bar').value;
+              window.open(url, 'expert-window');
+            }
+          </script>
+          <iframe name='expert-window'>
+            Expert browser is broken.
+          </iframe>
+        </div>
+      </div>
+
+      <!-- Controls Section -->
+      <div id="controls" class="content-section active">
+        <h1 class="page-title">controls</h1>
+        <div class="desk-paper">
+          
+        </div>
+      </div>
+
+      <!-- APPLICATIONS THAT ARE BUILT IN -->
+      <!-- PWA viewer for other apps -->
+      <div id='pwaview' class='content-section'>
+        <h1 class='page-title' id='pwa-title'>Application</h1>
+        <iframe id='pwa-iframe'></iframe>
+      </div>
+
+      <div id='keycaps' class='content-section'>
+        <h1 class='page-title'>Key Caps</h1>
+        <div class='desk-paper'>
+          <center><input type='text' style='width: calc(100% - 40px); font-family: courier; cursor: vertical-text;' id='keycaps-box' disabled='disabled'/></center>
+          <table class='non' style='width: calc(100% - 40px);' id='keycaps-table'>
+            <tbody>
+              <tr>
+                <td>
+                  <button>q</button>
+                </td>
+                <td>
+                  <button>w</button>
+                </td>
+                <td>
+                  <button>e</button>
+                </td>
+                <td>
+                  <button>r</button>
+                </td>
+                <td>
+                  <button>t</button>
+                </td>
+                <td>
+                  <button>y</button>
+                </td>
+                <td>
+                  <button>u</button>
+                </td>
+                <td>
+                  <button>i</button>
+                </td>
+                <td>
+                  <button>o</button>
+                </td>
+                <td>
+                  <button>p</button>
+                </td>
+                <td>
+                  <button>[</button>
+                </td>
+                <td>
+                  <button>]</button>
+                </td>
+                <td>
+                  <button>\</button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <button>≠</button>
+                </td>
+                <td>
+                  <button>a</button>
+                </td>
+                <td>
+                  <button>s</button>
+                </td>
+                <td>
+                  <button>d</button>
+                </td>
+                <td>
+                  <button style='text-decoration: underline;'>f</button>
+                </td>
+                <td>
+                  <button>g</button>
+                </td>
+                <td>
+                  <button>h</button>
+                </td>
+                <td>
+                  <button style='text-decoration: underline;'>j</button>
+                </td>
+                <td>
+                  <button>k</button>
+                </td>
+                <td>
+                  <button>l</button>
+                </td>
+                <td>
+                  <button>;</button>
+                </td>
+                <td>
+                  <button>'</button>
+                </td>
+                <td>
+                  <button>`</button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <button>shift</button>
+                </td>
+                <td>
+                  <button>z</button>
+                </td>
+                <td>
+                  <button>x</button>
+                </td>
+                <td>
+                  <button>c</button>
+                </td>
+                <td>
+                  <button>v</button>
+                </td>
+                <td>
+                  <button>b</button>
+                </td>
+                <td>
+                  <button>n</button>
+                </td>
+                <td>
+                  <button>m</button>
+                </td>
+                <td>
+                  <button>,</button>
+                </td>
+                <td>
+                  <button>.</button>
+                </td>
+                <td>
+                  <button>/</button>
+                </td>
+                <td>
+                  <button style='width: 50%;'> </button>
+                </td>
+                <td>
+                  <button title='backspace'><i class='fa fa-eraser'></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <script>
+          var kcString = '';
+          document.querySelectorAll('#keycaps-table button').forEach(kcBtn => {
+            if (kcBtn.title == 'backspace') {
+              kcBtn.addEventListener('click', function () {
+                kcString = kcString.slice(0, -1);
+                document.querySelector('#keycaps-box').value = kcString;
+              });
+            }
+            else {
+              kcBtn.addEventListener('click', function () {
+                kcString += kcBtn.innerHTML;
+                document.querySelector('#keycaps-box').value = kcString;
+              });
+            }
+          });
+        </script>
+      </div>
+
+      <!-- Phone -->
+      <div id='phone' class='content-section'>
+        <h1 class='page-title'>Key Caps</h1>
+        <div class='desk-paper'>
+          <style>#phone-table td button, #phone-box {width: calc(100% - 40px); height: 36pt; font-size: 18pt; font-weight: bold; color: darkslategrey;} #phone-table, #phone-box {max-width: 400px;}</style>
+          <center>
+            <input type='number' style='width: calc(100% - 40px); font-family: courier; cursor: vertical-text;' id='phone-box' step='1' min='0' max='999999999999'/>
+            <table class='non' style='width: calc(100% - 40px);' id='phone-table'>
+              <tbody>
+                <tr>
+                  <td>
+                    <button>1</button>
+                  </td>
+                  <td>
+                    <button>2</button>
+                  </td>
+                  <td>
+                    <button>3</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <button>4</button>
+                  </td>
+                  <td>
+                    <button>5</button>
+                  </td>
+                  <td>
+                    <button>6</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <button>7</button>
+                  </td>
+                  <td>
+                    <button>8</button>
+                  </td>
+                  <td>
+                    <button>9</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <button>#</button>
+                  </td>
+                  <td>
+                    <button>0</button>
+                  </td>
+                  <td>
+                    <button>*</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <button>+</button>
+                  </td>
+                  <td>
+                    <button title='backspace'><i class='fa fa-eraser'></i></button><br/>
+                    <button title='clear'><i class='fa fa-stop'></i></button>
+                  </td>
+                  <td>
+                    <button title='dial'><i class='fa fa-phone'></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </center>
+        </div>
+        <script>
+          var phoneString = '';
+          document.querySelectorAll('#phone-table button').forEach(phoneBtn => {
+            if (phoneBtn.title == 'backspace') {
+              phoneBtn.addEventListener('click', function () {
+                phoneString = phoneString.slice(0, -1);
+                document.querySelector('#phone-box').value = phoneString;
+              });
+            }
+            else if (phoneBtn.title == 'clear') {
+              phoneBtn.addEventListener('click', function () {
+                phoneString = '';
+                document.querySelector('#phone-box').value = phoneString;
+              });
+            }
+            else if (phoneBtn.title == 'dial') {
+              phoneBtn.addEventListener('click', function () {
+                window.open('tel:' + phoneString, '_self')
+                phoneString = '';
+                document.querySelector('#phone-box').value = phoneString;
+              });
+            }
+            else {
+              phoneBtn.addEventListener('click', function () {
+                phoneString += phoneBtn.innerHTML;
+                document.querySelector('#phone-box').value = phoneString;
+              });
+            }
+          });
+        </script>
+      </div>
+
+      <!-- add more here --->
+
+    </div>
+
+    <nav class="nav-bar">
+      <div class="nav-item" data-target="#start" id="homeTab">
+        <i class="fa-solid fa-home"></i>
+        Start
+      </div>
+      <div class="nav-item" data-target="#explore">
+        <i class="fa-solid fa-binoculars"></i>
+        Explore
+      </div>
+      <div class="nav-item" data-target="#expert">
+        <i class="fa-solid fa-globe"></i>
+        Expert
+      </div>
+      <div class="nav-item" data-target="#controls">
+        <i class="fa-solid fa-file-text"></i>
+        Controls
+      </div>
+    </nav>
+
+    <nav class='nav-bar' style='left: auto; right: 20px; width: auto;' id='clock-nav'>
+      <div class="nav-item" style='cursor: default;'>
+        <i class="fa-solid fa-clock"></i>
+        <span id='time-span'>Clock</span>
+      </div>
+    </nav>
+
+    <script>
+      $(document).ready(function () {
+        $(".nav-item").click(function () {
+          const target = $(this).data("target");
+          $(".content-section").removeClass("active");
+          $(target).addClass("active");
+          $(".nav-item").css({
+            transform: "translateY(0)",
+            background: "transparent",
+          });
+          $(this)
+            .css("background", "rgba(255,255,255,0.3)")
+            .css("transform", "translateY(-5px)");
+        });
+      });
+      // Settings Manager
+      const SettingsManager = {
+        init() {
+          this.loadSettings();
+          this.bindEvents();
+          this.togglePerformanceMode(
+            localStorage.getItem("performanceMode") === "true"
+          );
+        },
+
+        bindEvents() {
+          $("#performance-mode").change(function () {
+            localStorage.setItem("performanceMode", this.checked);
+            SettingsManager.togglePerformanceMode(this.checked);
+          });
+        },
+
+        loadSettings() {
+          const consent = document.cookie.includes("cookieConsent=true");
+          $("#performance-mode").prop(
+            "checked",
+            localStorage.getItem("performanceMode") === "true"
+          );
+        },
+
+        togglePerformanceMode(enable) {
+          $("body").toggleClass("flattened", enable);
+          $("#desmos-calculator").css("opacity", enable ? 0.9 : 1);
+        },
+      };
+
+      $(document).ready(function () {
+        SettingsManager.init();
+
+        // Existing navigation code
+        $(".nav-item").click(function () {
+          const target = $(this).data("target");
+          $(".content-section").removeClass("active");
+          $(target).addClass("active");
+          $(".nav-item").css({
+            transform: "translateY(0)",
+            background: "transparent",
+          });
+          $(this)
+            .css("background", "rgba(255,255,255,0.3)")
+            .css("transform", "translateY(-5px)");
+        });
+
+        var channelID = "UCEvttHNVOsafen6uySQbDkQ";
+        var reqURL = "https://www.youtube.com/feeds/videos.xml?channel_id=";
+        $.getJSON("https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(reqURL)+channelID, function(data) {
+           var link = data.items[0].link;
+           var id = link.substr(link.indexOf("=")+1);
+        $("#youtube_video").attr("src","https://youtube.com/embed/"+id + "?controls=0&showinfo=0&rel=0");
+        });
+      });
+
+      $(document).ready(function () {
+        if (
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+        ) {
+          $("body").addClass("dark");
+        }
+
+        window
+          .matchMedia("(prefers-color-scheme: dark)")
+          .addEventListener("change", (event) => {
+            if (event.matches) {
+              $("body").addClass("dark");
+            } else {
+              $("body").removeClass("dark");
+            }
+          });
+      });
+
+      
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  </body>
+</html>
