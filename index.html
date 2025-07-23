@@ -67,6 +67,7 @@
           padding: 15px;
           border-radius: 18px;
           height: 81px;
+          font-size: 14px;
         }
 
         .nav-item i {
@@ -82,52 +83,165 @@
           transition: transform 0.45s ease-in-out;
         }
         .content-section {
-          transform: translateY(124px);
           left: 20px;
           right: 20px;
+          top: 20px;
           position: absolute;
+          transform: translateY(144px);
         }
+        .content-section:not(#start) {
+          z-index: 98;
+        }
+        #start {
+          // transform: translateY(144px);
+          right: calc(50% + 20px);
+        }
+        #start, #clock {
+          min-height: 50px;
+          max-height: 50%;
+          overflow-y: auto;
+          overflow-x: none;
+          height: auto;
+        }
+        #clock {
+          left: calc(50% + 20px);
+        }
+        #taskbar {
+          min-right: calc(50% + 20px);
+        }
+        #taskbar .nav-item {
+          width: calc(40% - 15px);
+        }
+      }
+      /* Start Menu and Clock */
+      #start-grid {
+        text-align: center;
+      }
+      #start-grid h2 {
+        color: aliceblue;
+        user-select: none;
       }
       #start .nav-item {
         display: inline-block;
-        width: 360px;
+        //min-width: 22.4944009%;
+        min-width: 22.5%;
+        max-width: 25%;
+        gap: 18px;
+      }
+      .nav-bar {
+        z-index: 100;
+      }
+      i.broken {
+        color: maroon;
+      }
+      /* Controls App */
+      #controls > h1, h2, h3, h4, h5, h6, h7, h8 {
+        text-align: center;
+      }
+      .content-section:not(.big-menu) .page-title {
+        margin-bottom: 10px;
+        position: relative;
+        font-size: 18pt;
+        background: linear-gradient(
+          rgba(210, 200, 210, 0.44),
+          rgba(160, 150, 160, 0.44)
+        );
+        border-radius: 18pt;
+        padding-top: 2pt;
+        padding-bottom: 2pt;
+        cursor: move;
+        color: black;
+        font-family: 'Trajan Pro', trajan;
+        user-select: none;
+      }
+      #clock thead, #start-grid {
+        user-select: none;
+      }
+      .content-section {
+        box-sizing: border-box;
+        position: absolute;
+      }
+      #start, #clock {
+          z-index: 99;
       }
     </style>
   </head>
-  <body
-    onload="document.querySelector('#homeTab').click(); pascal.addDimension();"
-  >
+  <body onload="document.querySelector('#homeTab').click();">
     <div id="bgcontainer"></div>
     <div class="container">
-      <!-- Bio Section -->
-      <div id="start" class="content-section active" style='backdrop-filter: blur(24px);'>
-        <h1 class="page-title">Start</h1>
-        <!--<div class="desk-paper" style='line-height: 36pt;'></div>-->
-        <div class="nav-item" data-target="#phone">
-          <i class="fa-solid fa-phone"></i>
-          Phone
-        </div>
-        <div class="nav-item" data-target="#keycaps">
-          <i class="fa-solid fa-keyboard"></i>
-          Key Caps
-        </div>
-        <div class="nav-item" data-target="#calculator">
-          <i class="fa-solid fa-calculator"></i>
-          Calculator
+      <!-- Start Section -->
+      <div id="start" class="content-section big-menu active" style='backdrop-filter: blur(24px);'>
+        <div id='start-grid'>
+          <h2>System Apps</h2><br/>
+          <div class="nav-item" data-target="#phone">
+            <i class="fa-solid fa-phone"></i>
+            Phone
+          </div>
+          <div class="nav-item" data-target="#keycaps">
+            <i class="fa-solid fa-keyboard"></i>
+            Key Caps
+          </div>
+          <div class="nav-item" data-target="#expert">
+            <i class="fa-solid fa-globe"></i>
+            Expert
+          </div>
+          <div class="nav-item" data-target="#calculator">
+            <i class="fa-solid fa-calculator broken"></i>
+            Calculator
+          </div>
+          <div class="nav-item" data-target="#market">
+            <i class="fa-solid fa-plus broken"></i>
+            Market
+          </div>
+          <div class="nav-item" data-target="#statistics">
+            <i class="fa-solid fa-area-chart broken"></i>
+            Statistics
+          </div>
+          <a href='xterm://'>
+            <div class="nav-item" data-target="#start">
+              <i class="fa-solid fa-computer"></i>
+              Terminal
+            </div>
+          </a>
+          <div class="nav-item" data-target="#controls">
+            <i class="fa-solid fa-gears"></i>
+            Controls
+          </div>
         </div>
       </div>
 
+      <!-- Clock Section -->
+      <div id="clock" class="content-section big-menu" style='backdrop-filter: blur(24px);'>
+        <table class='non' style='width: calc(100% - 48px);'>
+          <thead>
+            <tr>
+              <td colspan='2'><strong>Clock</strong></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style='width: 25%;'><strong>Time</strong></td>
+              <td style='width: 75%;'><span id='time-span-ext'>Time</span></td>
+            </tr>
+            <tr>
+              <td style='width: 25%;'><strong>Date</strong></td>
+              <td style='width: 75%;'><span id='date-span-ext'>Date</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <!-- Explore Section -->
-      <div id="explore" class="content-section">
+      <!--<div id="explore" class="content-section">
         <h1 class="page-title">Explore</h1>
         <div class="desk-paper" style="font-size: 14pt;">
           <iframe src='file:///'></iframe>
         </div>
-      </div>
+      </div>-->
 
       <!-- Expert Section -->
       <div id="expert" class="content-section">
-        <h1 class="page-title">Expert Browser</h1>
+        <h1 class='page-title'>Expert</h1>
         <div class="desk-paper">
           <input type='text' id='address-bar' placeholder='enter URL...'/> <button id='go-btn' onclick='visitSite();'>Go</button> <button class='fa fa-refresh' id='refresh-btn'></button>
           <script>
@@ -143,10 +257,37 @@
       </div>
 
       <!-- Controls Section -->
-      <div id="controls" class="content-section active">
-        <h1 class="page-title">controls</h1>
+      <div id="controls" class="content-section">
+        <h1 class="page-title">Controls</h1>
         <div class="desk-paper">
-          
+          <h2>Clock</h2>
+          <p>
+            Date format: <select id='date-format'>
+              <option value='dmy'>date, month, year</option>
+              <option value='mdy'>month, day, year</option>
+              <option value='ymd'>year, month, day</option>
+              <option value='ydm'>year, day, month</option>
+              <option value='dym'>day, year, month</option>
+              <option value='myd'>month, year, day</option>
+              <option value='unix'>unix</option>
+              <option value='milennium'>milennium</option>
+            </select>
+          </p>
+          <h2>Applications</h2>
+          <table class='non'>
+            <tbody>
+              <tr>
+                <td colspan='2'>
+                  <a href='dolphin://settings'>
+                    <div class="nav-item" data-target='#controls' style='filter: brightness(45%);'>
+                      <i class="fa-solid fa-fish"></i>
+                      Dolphin
+                    </div>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
@@ -310,7 +451,7 @@
 
       <!-- Phone -->
       <div id='phone' class='content-section'>
-        <h1 class='page-title'>Key Caps</h1>
+        <h1 class='page-title'>Phone</h1>
         <div class='desk-paper'>
           <style>#phone-table td button, #phone-box {width: calc(100% - 40px); height: 36pt; font-size: 18pt; font-weight: bold; color: darkslategrey;} #phone-table, #phone-box {max-width: 400px;}</style>
           <center>
@@ -413,12 +554,12 @@
 
     </div>
 
-    <nav class="nav-bar">
+    <nav class="nav-bar" id='taskbar'>
       <div class="nav-item" data-target="#start" id="homeTab">
         <i class="fa-solid fa-home"></i>
         Start
       </div>
-      <div class="nav-item" data-target="#explore">
+      <div class="nav-item" data-target="#start" onclick='window.open("dolphin://")'>
         <i class="fa-solid fa-binoculars"></i>
         Explore
       </div>
@@ -427,33 +568,19 @@
         Expert
       </div>
       <div class="nav-item" data-target="#controls">
-        <i class="fa-solid fa-file-text"></i>
+        <i class="fa-solid fa-gears"></i>
         Controls
       </div>
     </nav>
 
     <nav class='nav-bar' style='left: auto; right: 20px; width: auto;' id='clock-nav'>
-      <div class="nav-item" style='cursor: default;'>
+      <div class="nav-item" data-target='#clock'>
         <i class="fa-solid fa-clock"></i>
         <span id='time-span'>Clock</span>
       </div>
     </nav>
 
     <script>
-      $(document).ready(function () {
-        $(".nav-item").click(function () {
-          const target = $(this).data("target");
-          $(".content-section").removeClass("active");
-          $(target).addClass("active");
-          $(".nav-item").css({
-            transform: "translateY(0)",
-            background: "transparent",
-          });
-          $(this)
-            .css("background", "rgba(255,255,255,0.3)")
-            .css("transform", "translateY(-5px)");
-        });
-      });
       // Settings Manager
       const SettingsManager = {
         init() {
@@ -485,13 +612,12 @@
         },
       };
 
+      // Window Management
       $(document).ready(function () {
         SettingsManager.init();
-
-        // Existing navigation code
         $(".nav-item").click(function () {
           const target = $(this).data("target");
-          $(".content-section").removeClass("active");
+          $(".content-section.fadeable, .big-menu").removeClass("active");
           $(target).addClass("active");
           $(".nav-item").css({
             transform: "translateY(0)",
@@ -501,16 +627,38 @@
             .css("background", "rgba(255,255,255,0.3)")
             .css("transform", "translateY(-5px)");
         });
-
-        var channelID = "UCEvttHNVOsafen6uySQbDkQ";
-        var reqURL = "https://www.youtube.com/feeds/videos.xml?channel_id=";
-        $.getJSON("https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(reqURL)+channelID, function(data) {
-           var link = data.items[0].link;
-           var id = link.substr(link.indexOf("=")+1);
-        $("#youtube_video").attr("src","https://youtube.com/embed/"+id + "?controls=0&showinfo=0&rel=0");
+      });
+      document.querySelectorAll('.content-section .page-title').forEach(section => {
+        section.addEventListener('dblclick', function () {
+          section.parentElement.classList.remove('active');
         });
       });
+      document.querySelectorAll('#clock thead, #start h2').forEach(section => {
+        section.addEventListener('dblclick', function () {
+          section.parentElement.parentElement.classList.remove('active');
+        });
+      });
+      interact('.content-section').resizable({
+          edges: { top: true, left: true, bottom: true, right: true },
+          listeners: {
+            move: function (event) {
+              let { x, y } = event.target.dataset
 
+              x = (parseFloat(x) || 0) + event.deltaRect.left
+              y = (parseFloat(y) || 0) + event.deltaRect.top
+
+              Object.assign(event.target.style, {
+                width: `${event.rect.width}px`,
+                height: `${event.rect.height}px`,
+                transform: `translate(${x}px, ${y}px)`
+              })
+
+              Object.assign(event.target.dataset, { x, y })
+            }
+          }
+       });
+
+      // Dark Mode Wallpaper Darkening
       $(document).ready(function () {
         if (
           window.matchMedia &&
@@ -530,8 +678,108 @@
           });
       });
 
+      // Controls
+      document.querySelector('#date-format').addEventListener('input', function () {
+        dateFormat = this.value;
+        updateTime();
+      });
+
+
+      // Clock
+      var time = '';
+      var extTime = '';
+      var militaryTime = false;
+      var showTaskbarClock = true;
+      var dateFormat = 'dmy';
+      var dateSep = '/';
+      var showExtDate = false;
+      setInterval(updateTime, 1000);
+      function updateTime () {
+        time = '';
+        extTime = '';
+        var d = new Date();
+        var s = d.getSeconds() ;
+        var min = d.getMinutes();
+        var hr = d.getHours();
+        var changeSStart = false;
+        var changeMinStart = false;
+        var changeHrStart = false;
+
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        const dateStr = new Date();
+        var date = '';
+        var extDate = '';
+        let year = dateStr.getFullYear();
+        let mo = dateStr.getMonth();
+        let month = months[mo];
+        let dateNum = dateStr.getDate();
+        let dy = dateStr.getDay();
+        let day = days[dy];
+        if (militaryTime != true) {
+          var pm = false;
+          if (hr >= 12) {
+            pm = true;
+            hr -= 12;
+          }
+          if (hr == 0) {
+            hr = 12;
+          }
+          if (s < 10) changeSStart = true;
+          if (min < 10) changeMinStart = true;
+          if (hr < 10) changeHrStart = true;
+          s = s.toString();
+          min = min.toString();
+          hr = hr.toString();
+          if (changeSStart) s = '0' + s;
+          if (changeMinStart) min = '0' + min;
+          if (changeHrStart) hr = '0' + hr;
+          time = hr + ':' + min + ((pm && !militaryTime) ? 'p.m.' : 'a.m.');
+          extTime = hr + ':' + min + ':' + s + ' ' + ((pm && !militaryTime) ? 'p.m.' : 'a.m.');
+
+          
+          if (dateFormat == 'dmy') {
+            date += dy + dateSep + (mo + 1) + dateSep + year;
+            extDate += day + ', ' + dateNum + ' ' + month + ', ' + year;
+          }
+          else if (dateFormat == 'mdy') {
+            date += (mo + 1) + dateSep + dy + dateSep + year;
+            extDate += day + ', ' + month + ' ' + dateNum + ', ' + year;
+          }
+          else if (dateFormat == 'ymd') {
+            date += year + dateSep + (mo + 1) + dateSep + dy;
+            extDate += day + ', ' + year + ' ' + month + ' ' + dateNum;
+          }
+          else if (dateFormat == 'ydm') {
+            date += year + dateSep + dy + dateSep + (mo + 1);
+            extDate += day + ', ' + year + ' ' + dateNum + ' ' + month;
+          }
+          else if (dateFormat == 'dym') {
+            date += dy + dateSep + year + dateSep + (mo + 1);
+            extDate += day + ', ' + dateNum + ' ' + year + ' ' + month;
+          }
+          else if (dateFormat == 'myd') {
+            date += (mo + 1) + dateSep + year + dateSep + dy;
+            extDate += day + ', ' + month + ' ' + year + ' ' + dateNum;
+          }
+          else if (dateFormat == 'unix') {
+            date += dateStr.getTime();
+            extDate += dateStr.getTime();
+          }
+          else if (dateFormat == 'milennium') {
+            date += (dateStr.getTime() - 946684800);
+            extDate += (dateStr.getTime() - 946684800);
+          }
+        }
+        if (showTaskbarClock) document.querySelector('#time-span').innerHTML = time;
+        document.querySelector('#time-span-ext').innerHTML = extTime;
+
+        if (showExtDate) document.querySelector('#date-span-ext').innerHTML = extDate;
+        else document.querySelector('#date-span-ext').innerHTML = date;
+      }
       
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
   </body>
 </html>
