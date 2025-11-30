@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,27 +10,16 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-    <link href='sigma.css' rel='stylesheet' type='text/css' />
+    <link href='osmium.css' rel='stylesheet' type='text/css' />
+    <link href='https://aryabhata.aeonic.me/styles/sigma.css' rel='stylesheet' type='text/css' />-->
     <style>
-      #bgcontainer {
+      #bgcontainer, html {
         background: url(https://t3.ftcdn.net/jpg/01/05/54/98/360_F_105549841_qGAF80yXJ0pfwV1RsxMCLXaJ8ae2rlRY.jpg);
         background-size: cover;
       }
       table#appTable tbody tr td img {
         height: 40px;
         width: 40px;
-      }
-      iframe {
-        border-radius: 12px;
-        backdrop-filter: blur(6.3px);
-        border: 1px solid black;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2), inset 2px 2px 3px 1px rgba(84, 56, 123, 0.25), 0 4px 30px rgba(0, 0, 0, 0.1);
-        margin: 24px;
-        padding: 14px;
-        width: calc(100% - 38px);
-        position: relative;
-        top: 12px;
-        bottom: 12px;
       }
       #expert {
         resize: vertical;
@@ -69,19 +59,6 @@
           height: 81px;
           font-size: 14px;
         }
-
-        .nav-item i {
-          font-size: 28px;
-        }
-        .nav-item:hover {
-          transform: translateY(-1.375px);
-          transition: transform 0.45s ease-in-out;
-        }
-        .nav-item:active,
-        .nav-item.active-state, .nav-item.active {
-          /*transform: translateY(1px);*/
-          transition: transform 0.45s ease-in-out;
-        }
         .content-section {
           left: 20px;
           right: 20px;
@@ -93,7 +70,6 @@
           z-index: 98;
         }
         #start {
-          // transform: translateY(144px);
           right: calc(50% + 20px);
         }
         #start, #clock {
@@ -167,10 +143,53 @@
     </style>
   </head>
   <body onload="document.querySelector('#homeTab').click();">
-    <div id="bgcontainer"></div>
-    <div class="container">
+    <video id="bgcontainer" class='video' autoplay></video>
+    
+    <svg style="position: absolute; width: 0; height: 0;" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="crystal-distortion">
+            <feTurbulence baseFrequency="0.008" numOctaves="9" result="turbulence"/>
+            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="48"/>
+        </filter>
+        <filter id="crystal-distortion-hover">
+            <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
+            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="16"/>
+            <feColorMatrix type="saturate" values="1.025"/>
+            <feColorMatrix type="hueRotate" values="12"/>
+        </filter>
+        <filter id="crystal-distortion-hover-button">
+            <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
+            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="24"/>
+            <feColorMatrix type="saturate" values="1.05"/>
+            <feColorMatrix type="hueRotate" values="12"/>
+        </filter>
+        <filter id="crystal-distortion-plus">
+            <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
+            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="72"/>
+            <feColorMatrix type="saturate" values="1.05"/>
+        </filter>
+        <filter id="crystal-distortion-plus-two">
+            <feTurbulence baseFrequency="0.016" numOctaves="6" result="turbulence"/>
+            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="96"/>
+            <feColorMatrix type="saturate" values="0.85"/>
+        </filter>
+        <filter id="crystal-distortion-plus-three">
+            <feTurbulence baseFrequency="0.016" numOctaves="6" result="turbulence"/>
+            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="144"/>
+            <feColorMatrix type="saturate" values="0.85"/>
+        </filter>
+        <filter id="crystal-distortion-minus">
+            <feTurbulence baseFrequency="0.008" numOctaves="2" result="turbulence"/>
+            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="24"/>
+            <feColorMatrix type="saturate" values="1.05"/>
+        </filter>
+      </defs>
+    </svg>
+    
+    
+    <div class="container cs-clear">
       <!-- Start Section -->
-      <div id="start" class="content-section big-menu active" style='backdrop-filter: blur(24px);'>
+      <div id="start" class="content-section big-menu active">
         <div id='start-grid'>
           <h2>System Apps</h2><br/>
           <div class="nav-item" data-target="#phone">
@@ -211,7 +230,7 @@
       </div>
 
       <!-- Clock Section -->
-      <div id="clock" class="content-section big-menu" style='backdrop-filter: blur(24px);'>
+      <div id="clock" class="content-section big-menu">
         <table class='non' style='width: calc(100% - 48px);'>
           <thead>
             <tr>
@@ -242,15 +261,16 @@
       <!-- Expert Section -->
       <div id="expert" class="content-section">
         <h1 class='page-title'>Expert</h1>
-        <div class="desk-paper">
-          <input type='text' id='address-bar' placeholder='enter URL...'/> <button id='go-btn' onclick='visitSite();'>Go</button> <button class='fa fa-refresh' id='refresh-btn'></button>
+        <div class="desk-paper" style='height: 80%;'>
+          <input type='text' id='address-bar' placeholder='enter URL...'/> <button id='go-btn' onclick='visitSite();'>Go</button> <button id='refresh-btn'><i class='fa fa-refresh'></i></button>
           <script>
             function visitSite () {
               const url = doucment.querySelector('#address-bar').value;
               window.open(url, 'expert-window');
             }
           </script>
-          <iframe name='expert-window'>
+          <hr width='90%'/>
+          <iframe name='expert-window' style='width: calc(100%-80px); height: 80%;'>
             Expert browser is broken.
           </iframe>
         </div>
@@ -273,21 +293,9 @@
               <option value='milennium'>milennium</option>
             </select>
           </p>
-          <h2>Applications</h2>
-          <table class='non'>
-            <tbody>
-              <tr>
-                <td colspan='2'>
-                  <a href='dolphin://settings'>
-                    <div class="nav-item" data-target='#controls' style='filter: brightness(45%);'>
-                      <i class="fa-solid fa-fish"></i>
-                      Dolphin
-                    </div>
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <h2>Desktop</h2>
+          <button onclick='stopCam();' class='btn-red'>Stop camera</button>
+          <button onclick='startCam();' class='btn-green'>Start camera</button>
         </div>
       </div>
 
@@ -301,134 +309,136 @@
       <div id='keycaps' class='content-section'>
         <h1 class='page-title'>Key Caps</h1>
         <div class='desk-paper'>
-          <center><input type='text' style='width: calc(100% - 40px); font-family: courier; cursor: vertical-text;' id='keycaps-box' disabled='disabled'/></center>
-          <table class='non' style='width: calc(100% - 40px);' id='keycaps-table'>
-            <tbody>
-              <tr>
-                <td>
-                  <button>q</button>
-                </td>
-                <td>
-                  <button>w</button>
-                </td>
-                <td>
-                  <button>e</button>
-                </td>
-                <td>
-                  <button>r</button>
-                </td>
-                <td>
-                  <button>t</button>
-                </td>
-                <td>
-                  <button>y</button>
-                </td>
-                <td>
-                  <button>u</button>
-                </td>
-                <td>
-                  <button>i</button>
-                </td>
-                <td>
-                  <button>o</button>
-                </td>
-                <td>
-                  <button>p</button>
-                </td>
-                <td>
-                  <button>[</button>
-                </td>
-                <td>
-                  <button>]</button>
-                </td>
-                <td>
-                  <button>\</button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <button>≠</button>
-                </td>
-                <td>
-                  <button>a</button>
-                </td>
-                <td>
-                  <button>s</button>
-                </td>
-                <td>
-                  <button>d</button>
-                </td>
-                <td>
-                  <button style='text-decoration: underline;'>f</button>
-                </td>
-                <td>
-                  <button>g</button>
-                </td>
-                <td>
-                  <button>h</button>
-                </td>
-                <td>
-                  <button style='text-decoration: underline;'>j</button>
-                </td>
-                <td>
-                  <button>k</button>
-                </td>
-                <td>
-                  <button>l</button>
-                </td>
-                <td>
-                  <button>;</button>
-                </td>
-                <td>
-                  <button>'</button>
-                </td>
-                <td>
-                  <button>`</button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <button>shift</button>
-                </td>
-                <td>
-                  <button>z</button>
-                </td>
-                <td>
-                  <button>x</button>
-                </td>
-                <td>
-                  <button>c</button>
-                </td>
-                <td>
-                  <button>v</button>
-                </td>
-                <td>
-                  <button>b</button>
-                </td>
-                <td>
-                  <button>n</button>
-                </td>
-                <td>
-                  <button>m</button>
-                </td>
-                <td>
-                  <button>,</button>
-                </td>
-                <td>
-                  <button>.</button>
-                </td>
-                <td>
-                  <button>/</button>
-                </td>
-                <td>
-                  <button style='width: 50%;'> </button>
-                </td>
-                <td>
-                  <button title='backspace'><i class='fa fa-eraser'></i></button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <center><input type='text' style='width: calc(100% - 40px); font-family: courier; cursor: vertical-text;' id='keycaps-box'/></center>
+          <div class='table-wrapper'>
+            <table class='non nepas' style='width: calc(100% - 40px);' id='keycaps-table'>
+              <tbody>
+                <tr>
+                  <td>
+                    <button>q</button>
+                  </td>
+                  <td>
+                    <button>w</button>
+                  </td>
+                  <td>
+                    <button>e</button>
+                  </td>
+                  <td>
+                    <button>r</button>
+                  </td>
+                  <td>
+                    <button>t</button>
+                  </td>
+                  <td>
+                    <button>y</button>
+                  </td>
+                  <td>
+                    <button>u</button>
+                  </td>
+                  <td>
+                    <button>i</button>
+                  </td>
+                  <td>
+                    <button>o</button>
+                  </td>
+                  <td>
+                    <button>p</button>
+                  </td>
+                  <td>
+                    <button>[</button>
+                  </td>
+                  <td>
+                    <button>]</button>
+                  </td>
+                  <td>
+                    <button>\</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <button>≠</button>
+                  </td>
+                  <td>
+                    <button>a</button>
+                  </td>
+                  <td>
+                    <button>s</button>
+                  </td>
+                  <td>
+                    <button>d</button>
+                  </td>
+                  <td>
+                    <button style='text-decoration: underline;'>f</button>
+                  </td>
+                  <td>
+                    <button>g</button>
+                  </td>
+                  <td>
+                    <button>h</button>
+                  </td>
+                  <td>
+                    <button style='text-decoration: underline;'>j</button>
+                  </td>
+                  <td>
+                    <button>k</button>
+                  </td>
+                  <td>
+                    <button>l</button>
+                  </td>
+                  <td>
+                    <button>;</button>
+                  </td>
+                  <td>
+                    <button>'</button>
+                  </td>
+                  <td>
+                    <button>`</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <button>shift</button>
+                  </td>
+                  <td>
+                    <button>z</button>
+                  </td>
+                  <td>
+                    <button>x</button>
+                  </td>
+                  <td>
+                    <button>c</button>
+                  </td>
+                  <td>
+                    <button>v</button>
+                  </td>
+                  <td>
+                    <button>b</button>
+                  </td>
+                  <td>
+                    <button>n</button>
+                  </td>
+                  <td>
+                    <button>m</button>
+                  </td>
+                  <td>
+                    <button>,</button>
+                  </td>
+                  <td>
+                    <button>.</button>
+                  </td>
+                  <td>
+                    <button>/</button>
+                  </td>
+                  <td>
+                    <button style='width: 50%;'> </button>
+                  </td>
+                  <td>
+                    <button title='backspace'><i class='fa fa-eraser'></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
         <script>
           var kcString = '';
@@ -450,13 +460,13 @@
       </div>
 
       <!-- Phone -->
-      <div id='phone' class='content-section'>
+      <div id='phone' class='content-section' style='width: auto; min-width: 440px;'>
         <h1 class='page-title'>Phone</h1>
         <div class='desk-paper'>
           <style>#phone-table td button, #phone-box {width: calc(100% - 40px); height: 36pt; font-size: 18pt; font-weight: bold; color: darkslategrey;} #phone-table, #phone-box {max-width: 400px;}</style>
           <center>
-            <input type='number' style='width: calc(100% - 40px); font-family: courier; cursor: vertical-text;' id='phone-box' step='1' min='0' max='999999999999'/>
-            <table class='non' style='width: calc(100% - 40px);' id='phone-table'>
+            <input type='number' style='width: calc(100% - 40px); min-width: 400px; font-family: courier; cursor: vertical-text;' id='phone-box' step='1' min='0' max='999999999999'/>
+            <table class='non nepas' style='width: calc(100% - 40px);' id='phone-table'>
               <tbody>
                 <tr>
                   <td>
@@ -554,12 +564,12 @@
 
     </div>
 
-    <nav class="nav-bar" id='taskbar'>
+    <nav class="nav-bar non nepas taskbarlike" id='taskbar'>
       <div class="nav-item" data-target="#start" id="homeTab">
         <i class="fa-solid fa-home"></i>
         Start
       </div>
-      <div class="nav-item" data-target="#start" onclick='window.open("dolphin://")'>
+      <div class="nav-item" data-target="#start">
         <i class="fa-solid fa-binoculars"></i>
         Explore
       </div>
@@ -573,7 +583,7 @@
       </div>
     </nav>
 
-    <nav class='nav-bar' style='left: auto; right: 20px; width: auto;' id='clock-nav'>
+    <nav class='nav-bar non nepas taskbarlike' style='left: auto; right: 20px; width: auto;' id='clock-nav'>
       <div class="nav-item" data-target='#clock'>
         <i class="fa-solid fa-clock"></i>
         <span id='time-span'>Clock</span>
@@ -612,22 +622,52 @@
         },
       };
 
-      // Window Management
-      $(document).ready(function () {
-        SettingsManager.init();
-        $(".nav-item").click(function () {
-          const target = $(this).data("target");
-          $(".content-section.fadeable, .big-menu").removeClass("active");
-          $(target).addClass("active");
-          $(".nav-item").css({
-            transform: "translateY(0)",
-            background: "transparent",
+      document.addEventListener('DOMContentLoaded', function() {
+        // Handle URL hash navigation after a delay
+        const currentHash = window.location.hash;
+        if (currentHash && currentHash.length > 1) {
+          setTimeout(() => {
+            navigateToSection(currentHash.substring(1));
+          }, 4000);
+        }
+
+        // Select home tab
+        const navItems = document.querySelectorAll('.nav-item');
+        const contentSections = document.querySelectorAll('.content-section');
+        // Window Management
+        function handleNavClick(event) {
+            const targetId = this.getAttribute('data-target');
+
+            // Hide all content sections
+            contentSections.forEach(section => {
+              section.classList.remove('active');
+            });
+
+            // Show the targeted section
+            document.querySelector(targetId).classList.add('active');
+
+            // Reset all nav items
+            navItems.forEach(item => {
+              item.style.transform = 'translateY(0)';
+              item.style.background = 'transparent';
+            });
+
+            // Style the clicked nav item
+            this.style.background = 'rgba(155,130,155,0.3)';
+            qs(this.primary).style.background = 'rgba(155,130,155,0.3)';
+            //qs(this.primary).style.transform = 'translateY(-5px)';
+          }
+
+          // Add click event to each nav item
+          navItems.forEach(item => {
+            item.addEventListener('click', handleNavClick);
           });
-          $(this)
-            .css("background", "rgba(255,255,255,0.3)")
-            .css("transform", "translateY(-5px)");
+
+          // Click the first nav item by default
+          document.querySelector('.nav-item').click();
         });
-      });
+      
+      
       document.querySelectorAll('.content-section .page-title').forEach(section => {
         section.addEventListener('dblclick', function () {
           section.parentElement.classList.remove('active');
