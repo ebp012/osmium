@@ -1,21 +1,20 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>eshaan's website</title>
+    <title>Osmium OS</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-    <link href='osmium.css' rel='stylesheet' type='text/css' />
-    <link href='https://aryabhata.aeonic.me/styles/sigma.css' rel='stylesheet' type='text/css' />-->
+    <link href='https://aryabhata.aeonic.me/styles/sigma.css' rel='stylesheet' type='text/css' />
     <style>
       #bgcontainer, html {
         background: url(https://t3.ftcdn.net/jpg/01/05/54/98/360_F_105549841_qGAF80yXJ0pfwV1RsxMCLXaJ8ae2rlRY.jpg);
         background-size: cover;
+        color: white;
       }
       table#appTable tbody tr td img {
         height: 40px;
@@ -32,6 +31,7 @@
           display: none;
         }
       }
+      * {transition:none;}
       @media (min-width: 1024px) {
         /* iPad Mini landscape width is 1024px */
         .nav-bar {
@@ -83,7 +83,7 @@
           left: calc(50% + 20px);
         }
         #taskbar {
-          min-right: calc(50% + 20px);
+          right: calc(50% + 20px);
         }
         #taskbar .nav-item {
           width: calc(40% - 15px);
@@ -99,7 +99,7 @@
       }
       #start .nav-item {
         display: inline-block;
-        //min-width: 22.4944009%;
+        /* min-width: 22.4944009%; */
         min-width: 22.5%;
         max-width: 25%;
         gap: 18px;
@@ -140,10 +140,73 @@
       #start, #clock {
           z-index: 99;
       }
+
+      video#bgcontainer {
+        transform: rotate3d(0,180,0,180deg);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+
+      .cs-clear .content-section, .cs-black .content-section, .cs-black .content-section, .nav-bar.non.nepas.taskbarlike {
+        backdrop-filter: blur(27px) url(#crystal-distortion) !important;
+        -webkit-backdrop-filter: blur(36px) !important;
+      }
+      .desk-paper{backdrop-filter:blur(45px);}
+
+      /* Minimal VR/Windowing UI styles (non-positional) */
+      .menu-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 4px 12px;
+        z-index: -10000;
+      }
+      .menu-bar .left, .menu-bar .right { display:flex; align-items:center; gap:12px }
+      .dock {
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 8px;
+        height: 72px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 6px 12px;
+        border-radius: 18px;
+        z-index: 10000;
+        backdrop-filter: blur(8px);
+      }
+      .dock .dock-item { width:56px; height:56px; border-radius:10px; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.08); cursor:pointer; }
+
+      /* Window styles */
+      .content-section {
+        position: absolute;
+        overflow: hidden;
+        z-index: 1000;
+        min-width: 320px;
+        min-height: 180px;
+      }
+      /*.content-section .titlebar { height:34px; display:flex; align-items:center; gap:8px; padding:4px 8px; margin: 0; background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(240,240,240,0.6)); cursor:grab }*/
+      .content-section .title { flex:1; font-weight:600; user-select:none }
+      .content-section .controls { display:flex; gap:6px; display: inline;}
+      .content-section .controls button { width:28px; height:24px; border-radius:6px; border: none; background: rgba(0,0,0,0.06); cursor:pointer; display: inline; filter: brightness(1.3); color: white;}
+      .content-section .content, .content-section .desk-paper { padding:8px; min-height: fit-content; height: calc(100% - 68px); overflow:auto; background: transparent }
+      .hidden-win { display:none !important }
+
+
     </style>
   </head>
-  <body onload="document.querySelector('#homeTab').click();">
-    <video id="bgcontainer" class='video' autoplay></video>
+  <body class='cs-clear'>
+    <video id="bgcontainer" class='video' autoplay muted playsinline></video>
+    <input type='file' id='wp-file' accept='image/*' style='display:none' />
     
     <svg style="position: absolute; width: 0; height: 0;" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -188,7 +251,7 @@
     
     
     <div class="container cs-clear">
-      <!-- Start Section -->
+      <!-- Start Section --
       <div id="start" class="content-section big-menu active">
         <div id='start-grid'>
           <h2>System Apps</h2><br/>
@@ -227,9 +290,9 @@
             Controls
           </div>
         </div>
-      </div>
+      </div>-->
 
-      <!-- Clock Section -->
+      <!-- Clock Section 
       <div id="clock" class="content-section big-menu">
         <table class='non' style='width: calc(100% - 48px);'>
           <thead>
@@ -248,7 +311,7 @@
             </tr>
           </tbody>
         </table>
-      </div>
+      </div>-->
 
       <!-- Explore Section -->
       <!--<div id="explore" class="content-section">
@@ -259,24 +322,29 @@
       </div>-->
 
       <!-- Expert Section -->
-      <div id="expert" class="content-section">
+      <!--<div id="expertold" class="content-section">
         <h1 class='page-title'>Expert</h1>
         <div class="desk-paper" style='height: 80%;'>
           <input type='text' id='address-bar' placeholder='enter URL...'/> <button id='go-btn' onclick='visitSite();'>Go</button> <button id='refresh-btn'><i class='fa fa-refresh'></i></button>
           <script>
             function visitSite () {
-              const url = doucment.querySelector('#address-bar').value;
+              let url = document.querySelector('#address-bar').value.trim();
+              if (!url) return;
+              // If the user didn't provide a scheme, assume https
+              if (!/^[a-zA-Z][a-zA-Z0-9+.-]*:\/\//.test(url)) {
+                url = 'https://' + url;
+              }
               window.open(url, 'expert-window');
             }
           </script>
           <hr width='90%'/>
-          <iframe name='expert-window' style='width: calc(100%-80px); height: 80%;'>
+          <iframe name='expert-window' style='width: calc(100% - 80px); height: 80%;'>
             Expert browser is broken.
           </iframe>
         </div>
-      </div>
+      </div>-->
 
-      <!-- Controls Section -->
+      <!-- Controls Section 
       <div id="controls" class="content-section">
         <h1 class="page-title">Controls</h1>
         <div class="desk-paper">
@@ -297,7 +365,7 @@
           <button onclick='stopCam();' class='btn-red'>Stop camera</button>
           <button onclick='startCam();' class='btn-green'>Start camera</button>
         </div>
-      </div>
+      </div>-->
 
       <!-- APPLICATIONS THAT ARE BUILT IN -->
       <!-- PWA viewer for other apps -->
@@ -306,7 +374,7 @@
         <iframe id='pwa-iframe'></iframe>
       </div>
 
-      <div id='keycaps' class='content-section'>
+      <!--<div id='keycaps' class='content-section'>
         <h1 class='page-title'>Key Caps</h1>
         <div class='desk-paper'>
           <center><input type='text' style='width: calc(100% - 40px); font-family: courier; cursor: vertical-text;' id='keycaps-box'/></center>
@@ -439,7 +507,7 @@
               </tbody>
             </table>
           </div>
-        </div>
+        </div>-->
         <script>
           var kcString = '';
           document.querySelectorAll('#keycaps-table button').forEach(kcBtn => {
@@ -459,7 +527,7 @@
         </script>
       </div>
 
-      <!-- Phone -->
+      <!-- Phone 
       <div id='phone' class='content-section' style='width: auto; min-width: 440px;'>
         <h1 class='page-title'>Phone</h1>
         <div class='desk-paper'>
@@ -558,37 +626,12 @@
             }
           });
         </script>
-      </div>
+      </div>-->
 
       <!-- add more here --->
 
     </div>
 
-    <nav class="nav-bar non nepas taskbarlike" id='taskbar'>
-      <div class="nav-item" data-target="#start" id="homeTab">
-        <i class="fa-solid fa-home"></i>
-        Start
-      </div>
-      <div class="nav-item" data-target="#start">
-        <i class="fa-solid fa-binoculars"></i>
-        Explore
-      </div>
-      <div class="nav-item" data-target="#expert">
-        <i class="fa-solid fa-globe"></i>
-        Expert
-      </div>
-      <div class="nav-item" data-target="#controls">
-        <i class="fa-solid fa-gears"></i>
-        Controls
-      </div>
-    </nav>
-
-    <nav class='nav-bar non nepas taskbarlike' style='left: auto; right: 20px; width: auto;' id='clock-nav'>
-      <div class="nav-item" data-target='#clock'>
-        <i class="fa-solid fa-clock"></i>
-        <span id='time-span'>Clock</span>
-      </div>
-    </nav>
 
     <script>
       // Settings Manager
@@ -636,7 +679,7 @@
         const contentSections = document.querySelectorAll('.content-section');
         // Window Management
         function handleNavClick(event) {
-            const targetId = this.getAttribute('data-target');
+            const targetId = this.getAttribute('datatarget');
 
             // Hide all content sections
             contentSections.forEach(section => {
@@ -644,17 +687,19 @@
             });
 
             // Show the targeted section
-            document.querySelector(targetId).classList.add('active');
+            const targetEl = document.querySelector(targetId);
+            if (targetEl) targetEl.classList.add('active');
 
             // Reset all nav items
             navItems.forEach(item => {
               item.style.transform = 'translateY(0)';
               item.style.background = 'transparent';
+              item.classList.remove('selected');
             });
 
             // Style the clicked nav item
             this.style.background = 'rgba(155,130,155,0.3)';
-            qs(this.primary).style.background = 'rgba(155,130,155,0.3)';
+            this.classList.add('selected');
             //qs(this.primary).style.transform = 'translateY(-5px)';
           }
 
@@ -666,8 +711,8 @@
           // Click the first nav item by default
           document.querySelector('.nav-item').click();
         });
-      
-      
+
+
       document.querySelectorAll('.content-section .page-title').forEach(section => {
         section.addEventListener('dblclick', function () {
           section.parentElement.classList.remove('active');
@@ -721,12 +766,12 @@
       // Controls
       document.querySelector('#date-format').addEventListener('input', function () {
         dateFormat = this.value;
-        updateTime();
+        //updateTime();
       });
 
 
       // Clock
-      var time = '';
+      /*var time = '';
       var extTime = '';
       var militaryTime = false;
       var showTaskbarClock = true;
@@ -735,92 +780,71 @@
       var showExtDate = false;
       setInterval(updateTime, 1000);
       function updateTime () {
-        time = '';
-        extTime = '';
-        var d = new Date();
-        var s = d.getSeconds() ;
-        var min = d.getMinutes();
-        var hr = d.getHours();
-        var changeSStart = false;
-        var changeMinStart = false;
-        var changeHrStart = false;
+        const d = new Date();
+        const s = d.getSeconds();
+        const min = d.getMinutes();
+        const hr24 = d.getHours();
 
-        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        const dateStr = new Date();
-        var date = '';
-        var extDate = '';
-        let year = dateStr.getFullYear();
-        let mo = dateStr.getMonth();
-        let month = months[mo];
-        let dateNum = dateStr.getDate();
-        let dy = dateStr.getDay();
-        let day = days[dy];
-        if (militaryTime != true) {
-          var pm = false;
-          if (hr >= 12) {
-            pm = true;
-            hr -= 12;
-          }
-          if (hr == 0) {
-            hr = 12;
-          }
-          if (s < 10) changeSStart = true;
-          if (min < 10) changeMinStart = true;
-          if (hr < 10) changeHrStart = true;
-          s = s.toString();
-          min = min.toString();
-          hr = hr.toString();
-          if (changeSStart) s = '0' + s;
-          if (changeMinStart) min = '0' + min;
-          if (changeHrStart) hr = '0' + hr;
-          time = hr + ':' + min + ((pm && !militaryTime) ? 'p.m.' : 'a.m.');
-          extTime = hr + ':' + min + ':' + s + ' ' + ((pm && !militaryTime) ? 'p.m.' : 'a.m.');
+        const pad = (n) => (n < 10 ? '0' + n : '' + n);
 
-          
-          if (dateFormat == 'dmy') {
-            date += dy + dateSep + (mo + 1) + dateSep + year;
-            extDate += day + ', ' + dateNum + ' ' + month + ', ' + year;
-          }
-          else if (dateFormat == 'mdy') {
-            date += (mo + 1) + dateSep + dy + dateSep + year;
-            extDate += day + ', ' + month + ' ' + dateNum + ', ' + year;
-          }
-          else if (dateFormat == 'ymd') {
-            date += year + dateSep + (mo + 1) + dateSep + dy;
-            extDate += day + ', ' + year + ' ' + month + ' ' + dateNum;
-          }
-          else if (dateFormat == 'ydm') {
-            date += year + dateSep + dy + dateSep + (mo + 1);
-            extDate += day + ', ' + year + ' ' + dateNum + ' ' + month;
-          }
-          else if (dateFormat == 'dym') {
-            date += dy + dateSep + year + dateSep + (mo + 1);
-            extDate += day + ', ' + dateNum + ' ' + year + ' ' + month;
-          }
-          else if (dateFormat == 'myd') {
-            date += (mo + 1) + dateSep + year + dateSep + dy;
-            extDate += day + ', ' + month + ' ' + year + ' ' + dateNum;
-          }
-          else if (dateFormat == 'unix') {
-            date += dateStr.getTime();
-            extDate += dateStr.getTime();
-          }
-          else if (dateFormat == 'milennium') {
-            date += (dateStr.getTime() - 946684800);
-            extDate += (dateStr.getTime() - 946684800);
-          }
+        let displayHour = hr24;
+        let ampm = '';
+        if (!militaryTime) {
+          ampm = hr24 >= 12 ? 'p.m.' : 'a.m.';
+          displayHour = hr24 % 12;
+          if (displayHour === 0) displayHour = 12;
         }
-        if (showTaskbarClock) document.querySelector('#time-span').innerHTML = time;
-        document.querySelector('#time-span-ext').innerHTML = extTime;
 
-        if (showExtDate) document.querySelector('#date-span-ext').innerHTML = extDate;
-        else document.querySelector('#date-span-ext').innerHTML = date;
-      }
-      
+        const hrStr = pad(displayHour);
+        const minStr = pad(min);
+        const secStr = pad(s);
+
+        time = (militaryTime ? pad(hr24) : hrStr) + ':' + minStr + (militaryTime ? '' : ' ' + ampm);
+        extTime = (militaryTime ? pad(hr24) : hrStr) + ':' + minStr + ':' + secStr + (militaryTime ? '' : ' ' + ampm);
+
+        const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+        const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+        const year = d.getFullYear();
+        const mo = d.getMonth();
+        const month = months[mo];
+        const dateNum = d.getDate();
+        const dy = d.getDay();
+        const day = days[dy];
+
+        let date = '';
+        let extDate = '';
+        if (dateFormat == 'dmy') {
+          date = dateNum + dateSep + (mo + 1) + dateSep + year;
+          extDate = day + ', ' + dateNum + ' ' + month + ', ' + year;
+        } else if (dateFormat == 'mdy') {
+          date = (mo + 1) + dateSep + dateNum + dateSep + year;
+          extDate = day + ', ' + month + ' ' + dateNum + ', ' + year;
+        } else if (dateFormat == 'ymd') {
+          date = year + dateSep + (mo + 1) + dateSep + dateNum;
+          extDate = day + ', ' + year + ' ' + month + ' ' + dateNum;
+        } else if (dateFormat == 'ydm') {
+          date = year + dateSep + dateNum + dateSep + (mo + 1);
+          extDate = day + ', ' + year + ' ' + dateNum + ' ' + month;
+        } else if (dateFormat == 'dym') {
+          date = dateNum + dateSep + year + dateSep + (mo + 1);
+          extDate = day + ', ' + dateNum + ' ' + year + ' ' + month;
+        } else if (dateFormat == 'myd') {
+          date = (mo + 1) + dateSep + year + dateSep + dateNum;
+          extDate = day + ', ' + month + ' ' + year + ' ' + dateNum;
+        } else if (dateFormat == 'unix') {
+          date = '' + d.getTime();
+          extDate = date;
+        } else if (dateFormat == 'milennium') {
+          date = '' + (d.getTime() - 946684800);
+          extDate = date;
+        }
+
+        if (showTaskbarClock) document.querySelector('#time-span').textContent = time;
+        document.querySelector('#time-span-ext').textContent = extTime;
+        document.querySelector('#date-span-ext').textContent = showExtDate ? extDate : date;
+      }*/
     </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
-    <script src='script.js'></script>
-  </body>
-</html>
+     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+     <script src='script.js'></script>
+   </body>
+ </html>
